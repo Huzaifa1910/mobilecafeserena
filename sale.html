@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Sales</title>
+</head>
+<body>
+  <div class="sale">
+        <div class="d-flex flex-column p-3 text-bg-dark" style="width: 280px; height: 755px;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+              <span class="fs-4">Mobile Cafe</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="./sale.html" class="nav-link active" aria-current="page">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                  Sale
+                </a>
+              </li>
+              <li>
+                <a href="./purchase.html" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                  Purchase
+                </a>
+              </li>
+              <li>
+                <a href="./stocks.html" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                  Stock
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white" >
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                  History
+                </a>
+              </li>
+              <hr>
+              <li>
+                <select class="form-select" aria-label="Default select example" id="company">
+                  <option selected>Select Company</option>
+                  <!-- <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option> -->
+                  <!-- <option value="other">Other</option> -->
+                </select>
+                
+                <div id="customInputContainer" style="display: none;">
+                  <input type="text" class="form-control" id="customCompanyInput" placeholder="Enter Custom Company">
+                </div>
+          </li>
+          <br>
+              <li>
+                <div class="mb-3">
+                  <input type="number" class="form-control" id="salePr" placeholder="Sale Price">
+                </div>
+          </li>
+              <li>
+                <div class="mb-3">
+                  <input type="number" class="form-control" id="qty" placeholder="Quantity">
+                </div>
+          </li>
+              <li>
+                <div class="mb-3">
+                  <textarea type="text" class="form-control" id="imei" placeholder="IMEI"></textarea>
+                </div>
+          </li>
+              <li>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="mobNo" placeholder="Customer Mob No.">
+                </div>
+          </li>
+          <li>
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary btn-md" id="saleBtn">Add</button>
+            </div>
+          </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+              <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://th.bing.com/th/id/OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa?pid=ImgDet&rs=1 alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>Mobile Cafe</strong>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="signoutBtn">Sign out</a></li>
+              </ul>
+            </div>
+          </div>
+<!-- <br> -->
+
+<div class="tablesDiv">
+<div class="container heightFix">
+  <h5 class="text-center text-light">Opening Balance</h5>
+
+    <input class="form-control my-2" type="text" value="####################" aria-label="Disabled input example" id="openingBal" disabled readonly>
+      <h1 class="text-center text-light">Sale</h1>
+        <table class="table table-hover table-dark table-striped ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Company & Model</th>
+                <th scope="col">Sale</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Sale</th>
+                <th scope="col">IMEI</th>
+                <th scope="col">Cust Mobile No.</th>
+              </tr>
+            </thead>
+            <tbody id="detailsBody1">
+              <!-- <tr id="business1" data-toggle="modal" data-target="#passModal">
+                <td scope="row">1</td>
+                <td>Mark</td>
+                <td>10200</td>
+                <td>3000</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+              </tr>
+              <tr id="business1" data-toggle="modal" data-target="#passModal">
+                <td scope="row">1</td>
+                <td>9/12/2023</td>
+                <td>Oppo</td>
+                <td>30000</td>
+                <td>30</td>
+                <td>900000</td>
+                <td>###############</td>
+                <td>3042490922</td>
+              </tr> -->
+            </tbody>
+          </table>
+</div>
+<div class="container totalFooter">
+          <table class="table table-hover table-dark table-striped ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sale</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Sale</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr id="Total" data-toggle="modal" data-target="#passModal">
+              <th>Total</th>
+              <th id="totalSale">300</th>
+              <th id="totalQty">300</th>
+              <th id="totalSalePrice">300</th>
+            </tr>
+          </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+<script type="module" src="dbSale.js"></script>
+<script type="module" src="logout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
