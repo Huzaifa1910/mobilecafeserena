@@ -277,11 +277,21 @@ img{
     height: 630px;
     overflow-y: scroll;
 }
+.heightFix2{
+    height: 315px;
+    overflow-y: scroll;
+}
 .tablesDiv{
     width: 100% !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+.tablesDiv2{
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 @media screen and (max-width: 1350px) {
     .add-btns{

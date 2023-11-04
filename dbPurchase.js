@@ -1,18 +1,18 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
-
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBYW4qvOR2wYIXb8Q-HxLuLjjKb8g7WSw0",
-    authDomain: "mobilecafe-72ce0.firebaseapp.com",
-    databaseURL: "https://mobilecafe-72ce0-default-rtdb.firebaseio.com",
-    projectId: "mobilecafe-72ce0",
-    storageBucket: "mobilecafe-72ce0.appspot.com",
-    messagingSenderId: "172091451763",
-    appId: "1:172091451763:web:495ec8f77a21e69026bd06"
-};
-
+    apiKey: "AIzaSyBocLCsnL8aEkTir7bAu5X4_vuWuUKpFXI",
+    authDomain: "mobilecafeserena.firebaseapp.com",
+    databaseURL: "https://mobilecafeserena-default-rtdb.firebaseio.com",
+    projectId: "mobilecafeserena",
+    storageBucket: "mobilecafeserena.appspot.com",
+    messagingSenderId: "351687233974",
+    appId: "1:351687233974:web:25ea3918a45804568cb117",
+    measurementId: "G-BQ3ZFYT28X"
+  };
 const selectElement = document.getElementById("company");
 const customInputContainer = document.getElementById("customInputContainer");
 const customCompanyInput = document.getElementById("customCompanyInput");
@@ -30,6 +30,7 @@ selectElement.addEventListener("change", function () {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const analytics = getAnalytics(app);
 var keyscount
 
 var key = "loan"
@@ -63,8 +64,15 @@ function getFormattedDate() {
     totalpurchase.innerHTML = ""
     totalpurchaseprice.innerHTML = ""
     const data = snapshot.val();
+    // today date in dd/mm/yyyy
+    const todayDate = getFormattedDate();
+    var serialNo = 0
     try{var keyss = Object.keys(data)
+        // console.log date in data
         for(var i = 0; i < keyss.length; i++){
+            if(data[keyss[i]].date == todayDate){
+            // if(data[keyss[i]].date == todayDate){
+            console.log(data[keyss[i]].date)
             const row = document.createElement("tr");
             const sNo = document.createElement("td");
             const date = document.createElement("td");
@@ -76,7 +84,7 @@ function getFormattedDate() {
         const imei = document.createElement("td");
         
         
-        sNo.innerHTML = i+1
+        sNo.innerHTML = serialNo+1
         date.innerHTML = data[keyss[i]].date
         company.innerHTML = data[keyss[i]].company
         purchase_price.innerHTML = data[keyss[i]].purchase_price
@@ -106,6 +114,8 @@ function getFormattedDate() {
         row.appendChild(imei)
         row.appendChild(phone)
         
+        serialNo = serialNo+1
+
         document.getElementById("detailsBody1").appendChild(row)
         ts = ts + parseInt(data[keyss[i]].purchase_price)
         tq = tq + parseInt(data[keyss[i]].quantity)
@@ -118,6 +128,7 @@ function getFormattedDate() {
         totalpurchaseprice.innerHTML = tsp
         keyscount = data[keyss[i]].id
     }
+}
 }
 catch(e){
     console.log(e)
@@ -154,6 +165,7 @@ async function incrementInStock(company,qty,imei){
   
   async function addStock(company, qty, totalpurchasepr){
     const stockRef = ref(database, "stockMC/"+company.toString());
+    // const purchasePr = document.getElementById("purchasePr").value
     onValue(stockRef, (snapshot) => {
         const data = snapshot.val();
         if(data == null){
@@ -162,6 +174,7 @@ async function incrementInStock(company,qty,imei){
                 quantity: qty,
                 imei: totalpurchasepr,
                 id: company,
+                // purchase_price: purchasePr,
             };
             const stockRef = ref(database, "stockMC/"+company.toString());
             set(stockRef, stockData);          
@@ -178,6 +191,7 @@ async function incrementInStock(company,qty,imei){
               quantity: qtys,
               imei: combinedArray,
               id: data.company,
+            //   purchase_price: purchasePr,
           };
           set(stockRef, stockData);
           console.log(stockData)
@@ -230,8 +244,8 @@ catch(e){
     if (company === "other") {
         company = document.getElementById("customCompanyInput").value
     }
-    const purchasePr = document.getElementById("purchasePr").value
     const qty = document.getElementById("qty").value
+    const purchasePr = document.getElementById("purchasePr").value
     if(purchasePr == "" || qty == ""){
         alert("Please fill all fields")
         return

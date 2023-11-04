@@ -1,21 +1,24 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
-
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBYW4qvOR2wYIXb8Q-HxLuLjjKb8g7WSw0",
-    authDomain: "mobilecafe-72ce0.firebaseapp.com",
-    databaseURL: "https://mobilecafe-72ce0-default-rtdb.firebaseio.com",
-    projectId: "mobilecafe-72ce0",
-    storageBucket: "mobilecafe-72ce0.appspot.com",
-    messagingSenderId: "172091451763",
-    appId: "1:172091451763:web:495ec8f77a21e69026bd06"
-};
+    apiKey: "AIzaSyBocLCsnL8aEkTir7bAu5X4_vuWuUKpFXI",
+    authDomain: "mobilecafeserena.firebaseapp.com",
+    databaseURL: "https://mobilecafeserena-default-rtdb.firebaseio.com",
+    projectId: "mobilecafeserena",
+    storageBucket: "mobilecafeserena.appspot.com",
+    messagingSenderId: "351687233974",
+    appId: "1:351687233974:web:25ea3918a45804568cb117",
+    measurementId: "G-BQ3ZFYT28X"
+  };
 
 const selectElement = document.getElementById("company");
 const customInputContainer = document.getElementById("customInputContainer");
 const customCompanyInput = document.getElementById("customCompanyInput");
+var purchaseData
+var purchaseDataKeys
 
 selectElement.addEventListener("change", function () {
   if (selectElement.value === "other") {
@@ -30,8 +33,8 @@ selectElement.addEventListener("change", function () {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const analytics = getAnalytics(app);
 var keyscount
-
 var key = "loan"
 var key1 = 0
 var key2 = 0
@@ -52,77 +55,84 @@ function getFormattedDate() {
     const day = String(now.getDate()).padStart(2, '0');
     const month = String(now.getMonth() + 1).padStart(2, '0'); // Note: Months are zero-based, so we add 1.
     const year = now.getFullYear();
-  
+    
     return `${day}/${month}/${year}`;
-  }
+}
   const starCountRef = ref(database, 'salesMC');
+  // get today date in format dd/mm/yyyy
+    const today = getFormattedDate();
+    var serialNo = 0
   onValue(starCountRef, (snapshot) => {
-    document.getElementById("detailsBody1").innerHTML = ""
-    document.getElementById("totalSale").innerHTML = ""
-    document.getElementById("totalQty").innerHTML = ""
-    document.getElementById("totalSalePrice").innerHTML = ""
-      const data = snapshot.val();
-      try{var keyss = Object.keys(data)
-      for(var i = 0; i < keyss.length; i++){
-        const row = document.createElement("tr");
-        const sNo = document.createElement("td");
-        const date = document.createElement("td");
-        const company = document.createElement("td");
-        const phone = document.createElement("td");
-        const quantity = document.createElement("td");
-        const sale_price = document.createElement("td");
-        const total_sale_price = document.createElement("td");
-        const imei = document.createElement("td");
+      console.log("hello")
+      document.getElementById("detailsBody1").innerHTML = ""
+      document.getElementById("totalSale").innerHTML = ""
+document.getElementById("totalQty").innerHTML = ""
+document.getElementById("totalSalePrice").innerHTML = ""
+    const data = snapshot.val();
+    try{var keyss = Object.keys(data)
+    for(var i = 0; i < keyss.length; i++){
+        if(data[keyss[i]].date == today){
+    const row = document.createElement("tr");
+    const sNo = document.createElement("td");
+    const date = document.createElement("td");
+    const company = document.createElement("td");
+    const phone = document.createElement("td");
+    const quantity = document.createElement("td");
+    const sale_price = document.createElement("td");
+    const total_sale_price = document.createElement("td");
+    const imei = document.createElement("td");
 
-        
-        sNo.innerHTML = i+1
-        date.innerHTML = data[keyss[i]].date
-        company.innerHTML = data[keyss[i]].company
-        sale_price.innerHTML = data[keyss[i]].sale_price
-        phone.innerHTML = data[keyss[i]].phone
-        quantity.innerHTML = data[keyss[i]].quantity
-        total_sale_price.innerHTML = data[keyss[i]].total_sale_price
-        // imei.innerHTML = data[keyss[i]].imei
-        var select = document.createElement("select")
-        select.setAttribute("id","imeiSelect")
-        select.setAttribute('data-bs-theme','dark')
-        select.setAttribute("class","form-select text-light")
-        console.log(data[keyss[i]].imei)
-        for(var k = 0; k<data[keyss[i]].imei.length; k++){
-            var op = document.createElement("option")
-            op.value = data[keyss[i]].imei[k]
-            op.text = data[keyss[i]].imei[k]
-            console.log(data[keyss[i]].imei[k])
-            select.appendChild(op)
-        }
-        imei.appendChild(select)
-        row.appendChild(sNo)
-        row.appendChild(date)
-        row.appendChild(company)
-        row.appendChild(sale_price)
-        row.appendChild(quantity)
-        row.appendChild(total_sale_price)
-        row.appendChild(imei)
-        row.appendChild(phone)
-        
-        document.getElementById("detailsBody1").appendChild(row)
-        ts = ts + parseInt(data[keyss[i]].sale_price)
-        tq = tq + parseInt(data[keyss[i]].quantity)
-        tsp = tsp + parseInt(data[keyss[i]].total_sale_price)
-        console.log(tsp)
-        localStorage.setItem("total_sale_price",tsp)
+    
+    sNo.innerHTML = serialNo+1
+    date.innerHTML = data[keyss[i]].date
+    company.innerHTML = data[keyss[i]].company
+    sale_price.innerHTML = data[keyss[i]].sale_price
+    phone.innerHTML = data[keyss[i]].phone
+    quantity.innerHTML = data[keyss[i]].quantity
+    total_sale_price.innerHTML = data[keyss[i]].total_sale_price
+    // imei.innerHTML = data[keyss[i]].imei
+    var select = document.createElement("select")
+    select.setAttribute("id","imeiSelect")
+    select.setAttribute('data-bs-theme','dark')
+    select.setAttribute("class","form-select text-light")
+    console.log(data[keyss[i]].imei)
+    for(var k = 0; k<data[keyss[i]].imei.length; k++){
+        var op = document.createElement("option")
+        op.value = data[keyss[i]].imei[k]
+        op.text = data[keyss[i]].imei[k]
+        console.log(data[keyss[i]].imei[k])
+        select.appendChild(op)
+    }
+    imei.appendChild(select)
+    row.appendChild(sNo)
+    row.appendChild(date)
+    row.appendChild(company)
+    row.appendChild(sale_price)
+    row.appendChild(quantity)
+    row.appendChild(total_sale_price)
+    row.appendChild(imei)
+    row.appendChild(phone)
+    
+    serialNo = serialNo+1
+    
+    document.getElementById("detailsBody1").appendChild(row)
+    ts = ts + parseInt(data[keyss[i]].sale_price)
+    tq = tq + parseInt(data[keyss[i]].quantity)
+    tsp = tsp + parseInt(data[keyss[i]].total_sale_price)
+    console.log(tsp)
+    localStorage.setItem("total_sale_price",tsp)
 
-        totalsale.innerHTML = ts
-        totalQty.innerHTML = tq
-        totalsaleprice.innerHTML = tsp
-        keyscount = data[keyss[i]].id
-      }}
-      catch(e){
-        console.log(e)
-      }
-      
-  
-  });
+    totalsale.innerHTML = ts
+    totalQty.innerHTML = tq
+    totalsaleprice.innerHTML = tsp
+    keyscount = data[keyss[i]].id
+    }
+    }}
+    catch(e){
+    console.log(e)
+    }
+
+});
 
 
 
@@ -176,6 +186,26 @@ catch(e){
     var IMEI = imei.split('\n')
     const phoneNo = document.getElementById("mobNo").value
 
+    var found = false;
+    var purchasePrices = {};
+    for (var i = 0; i < IMEI.length; i++) {
+        for (var j = 0; j < purchaseDataKeys.length; j++) {
+            var purchase = purchaseData[purchaseDataKeys[j]];
+            if (purchase.imei.includes(IMEI[i])) {
+                purchasePrices[IMEI[i]] = purchase.purchase_price;
+                found = true;
+                break;
+            }
+        }
+    
+    }
+    // for(i=0; i<IMEI.length; i++){
+    //     if(IMEI[i] in purchasePrices){
+    //         console.log(purchasePrices[IMEI[i]]);
+    //     }
+    // }
+    
+    
     const salesRef = ref(database, 'salesMC/'+keyid);
     const saleData = {
         date: date,
@@ -186,6 +216,8 @@ catch(e){
         total_sale_price: totalSalepr,
         imei: IMEI,
         id: keycount,
+        purchase_price: purchasePrices
+        // profitLoss: totalSalepr - (purchasePrice * qty)
     };
     set(salesRef, saleData);
     // window.location.href = "./sale.html"
@@ -214,7 +246,11 @@ const purchaseRef = ref(database, 'purchasesMC');
 onValue(purchaseRef, (snapshot) => {
     var checkList = []
     const data = snapshot.val();
-      try{var keyss = Object.keys(data)
+    purchaseData = data
+    console.log(purchaseData)
+      try{
+        var keyss = Object.keys(data)
+        purchaseDataKeys = keyss
       for(var i = 0; i < keyss.length; i++){
         if(checkList.includes(data[keyss[i]].company)){
             console.log("already exists")
@@ -243,6 +279,7 @@ async function decrementInStock(company,qty,imei){
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
     //   console.log(data.quantity)
+    try{
     for(var o = 0; o<data.imei.length; o++){
         for(var g = 0; g<imei.length;g++){
             if(parseInt(data.imei[o]) == imei[g]){
@@ -263,6 +300,9 @@ async function decrementInStock(company,qty,imei){
     };
     set(starCountRef, stockData);
     console.log(stockData)
+}catch(e){
+    console.log(e)
+}
     },{
         onlyOnce: true,
     });   

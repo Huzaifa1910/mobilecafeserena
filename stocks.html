@@ -35,9 +35,21 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="nav-link text-white" >
+                <a href="./history.html" class="nav-link text-white" >
                   <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                   History
+                </a>
+              </li>
+              <li>
+                <a href="./pl.html" class="nav-link text-white" >
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                  Profit/Loss
+                </a>
+              </li>
+              <li>
+                <a href="./balance.html" class="nav-link text-white" >
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                  Balance
                 </a>
               </li>
             </ul>
@@ -48,7 +60,7 @@
                 <strong>Mobile Cafe</strong>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" id="balanceSetBtn" href="#">Set Balance</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -60,9 +72,9 @@
 
 <div class="tablesDiv">
 <div class="container heightFix">
-    <h5 class="text-center text-light">Opening Balance</h5>
+    <!-- <h5 class="text-center text-light">Opening Balance</h5>
 
-    <input class="form-control my-2" type="text" value="####################" aria-label="Disabled input example" id="openingBal" disabled readonly>
+    <input class="form-control my-2" type="text" value="####################" aria-label="Disabled input example" id="openingBal" disabled readonly> -->
     <!-- <input class="form-control my-2" type="text" value="####################" aria-label="Disabled input example" disabled readonly> -->
       <h1 class="text-center text-light">Stock</h1>
         <table class="table table-hover table-dark table-striped ">
@@ -120,6 +132,12 @@
           </table>
     </div>
   </div>
+</div>
+
+<div class="container">
+  <footer class="py-3 my-4">
+    <p class="text-center text-body-secondary" style="color: #7c7c7c !important;">&copy; Feat Global Technologies 2023 All rights reserved</p>
+  </footer>
 </div>
 <script type="module" src="dbstock.js"></script>
 <script type="module" src="logout.js"></script>

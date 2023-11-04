@@ -1,17 +1,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
 const firebaseConfig = {
-    apiKey: "AIzaSyBYW4qvOR2wYIXb8Q-HxLuLjjKb8g7WSw0",
-  authDomain: "mobilecafe-72ce0.firebaseapp.com",
-  databaseURL: "https://mobilecafe-72ce0-default-rtdb.firebaseio.com",
-  projectId: "mobilecafe-72ce0",
-  storageBucket: "mobilecafe-72ce0.appspot.com",
-  messagingSenderId: "172091451763",
-  appId: "1:172091451763:web:495ec8f77a21e69026bd06"
-};
-
+    apiKey: "AIzaSyBocLCsnL8aEkTir7bAu5X4_vuWuUKpFXI",
+    authDomain: "mobilecafeserena.firebaseapp.com",
+    databaseURL: "https://mobilecafeserena-default-rtdb.firebaseio.com",
+    projectId: "mobilecafeserena",
+    storageBucket: "mobilecafeserena.appspot.com",
+    messagingSenderId: "351687233974",
+    appId: "1:351687233974:web:25ea3918a45804568cb117",
+    measurementId: "G-BQ3ZFYT28X"
+  };
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const analytics = getAnalytics(app);
 
 var totalQty = document.getElementById("totalQty")
 var tq = 0
@@ -24,7 +26,7 @@ const starCountRef = ref(database, 'stockMC');
     // totalpurchaseprice.innerHTML = ""
     const data = snapshot.val();
     console.log(data)
-    try{var keyss = Object.keys(data)
+        try{var keyss = Object.keys(data)
         console.log(keyss.length)
         for(var i = 0; i < keyss.length; i++){
             const row = document.createElement("tr");
